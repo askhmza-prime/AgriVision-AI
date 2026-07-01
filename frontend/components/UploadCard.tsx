@@ -38,7 +38,6 @@ export default function UploadCard() {
 
       setPrediction(result);
 
-      // Small delay so the scan animation finishes nicely
       setTimeout(() => {
         setLoading(false);
         setShowResult(true);
@@ -56,8 +55,32 @@ export default function UploadCard() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="rounded-3xl border border-green-500/20 bg-black/40 p-8 shadow-2xl backdrop-blur-xl"
+      className="
+        relative
+        overflow-hidden
+        rounded-3xl
+        border
+        border-green-500/20
+        bg-gradient-to-br
+        from-[#101010]/95
+        to-[#181818]/90
+        backdrop-blur-2xl
+        shadow-[0_20px_80px_rgba(0,0,0,.45)]
+        p-8
+      "
     >
+      {/* Animated Border Glow */}
+      <motion.div
+        animate={{
+          opacity: [0.3, 0.8, 0.3],
+        }}
+        transition={{
+          repeat: Infinity,
+          duration: 2,
+        }}
+        className="absolute inset-0 rounded-3xl border border-green-400/20 pointer-events-none"
+      />
+
       <input
         ref={inputRef}
         type="file"
@@ -68,11 +91,45 @@ export default function UploadCard() {
 
       <div
         onClick={() => inputRef.current?.click()}
-        className="cursor-pointer overflow-hidden rounded-2xl border-2 border-dashed border-green-500/40 p-10 text-center transition duration-300 hover:border-green-400"
+        className="
+          relative
+          rounded-2xl
+          border-2
+          border-dashed
+          border-green-500/30
+          bg-green-500/5
+          p-10
+          transition
+          hover:border-green-400
+          hover:bg-green-500/10
+          cursor-pointer
+          overflow-hidden
+        "
       >
+        {/* Upload Success */}
+        {preview && (
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            className="absolute top-5 right-5 z-30 flex h-10 w-10 items-center justify-center rounded-full bg-green-500 text-white font-bold shadow-lg"
+          >
+            ✓
+          </motion.div>
+        )}
+
         {!preview ? (
           <>
-            <Upload className="mx-auto h-14 w-14 text-green-400" />
+            <motion.div
+              animate={{
+                y: [0, -8, 0],
+              }}
+              transition={{
+                repeat: Infinity,
+                duration: 2,
+              }}
+            >
+              <Upload className="mx-auto h-16 w-16 text-green-400" />
+            </motion.div>
 
             <p className="mt-4 text-lg font-semibold text-white">
               Upload Crop Image
@@ -86,12 +143,16 @@ export default function UploadCard() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="relative overflow-hidden rounded-xl"
+            className="relative overflow-hidden rounded-2xl"
           >
-            <img
+            <motion.img
+              whileHover={{
+                scale: 1.03,
+              }}
+              transition={{ duration: 0.3 }}
               src={preview}
               alt="Leaf Preview"
-              className="max-h-96 w-full rounded-xl object-cover"
+              className="w-full max-h-96 rounded-2xl object-cover"
             />
 
             {loading && (
@@ -111,13 +172,37 @@ export default function UploadCard() {
       </div>
 
       {file && (
-        <button
-          onClick={handlePredict}
-          disabled={loading}
-          className="mt-6 w-full rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 py-4 text-lg font-bold text-white transition shadow-[0_0_40px_rgba(34,197,94,.45)] hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          {loading ? "Analyzing..." : "🤖 Detect Disease"}
-        </button>
+        <>
+          {/* AI Status */}
+          <div className="mt-6 flex items-center justify-between text-sm text-gray-400">
+            <span>⚡ AI Ready</span>
+            <span>CNN • MobileNetV2</span>
+          </div>
+
+          <button
+            onClick={handlePredict}
+            disabled={loading}
+            className="
+              w-full
+              mt-6
+              rounded-2xl
+              py-5
+              font-bold
+              text-lg
+              text-white
+              bg-gradient-to-r
+              from-green-500
+              to-emerald-600
+              shadow-[0_0_35px_rgba(34,197,94,.45)]
+              hover:scale-[1.02]
+              transition
+              disabled:opacity-50
+              disabled:cursor-not-allowed
+            "
+          >
+            {loading ? "Analyzing..." : "🤖 Detect Disease"}
+          </button>
+        </>
       )}
 
       {loading && (
