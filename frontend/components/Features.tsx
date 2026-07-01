@@ -1,61 +1,69 @@
+"use client";
+
+import { Brain, ScanSearch, ShieldCheck, Smartphone } from "lucide-react";
+import { motion } from "framer-motion";
+
 const features = [
   {
-    title: "AI Disease Detection",
-    desc: "Detect crop diseases instantly using Deep Learning.",
-    icon: "🧠",
+    icon: ScanSearch,
+    title: "Disease Detection",
+    text: "Upload a crop image and detect diseases instantly.",
   },
   {
-    title: "High Accuracy",
-    desc: "Powered by MobileNetV2 trained on thousands of crop images.",
-    icon: "🎯",
+    icon: Brain,
+    title: "AI Powered",
+    text: "Deep learning model trained for high accuracy.",
   },
   {
+    icon: ShieldCheck,
     title: "Treatment Guide",
-    desc: "Receive treatment suggestions and prevention tips.",
-    icon: "💊",
+    text: "Get prevention and treatment suggestions instantly.",
   },
   {
-    title: "Farmer Friendly",
-    desc: "Simple interface designed for mobile devices.",
-    icon: "🌱",
+    icon: Smartphone,
+    title: "Responsive",
+    text: "Works beautifully on desktop, tablet and mobile.",
   },
 ];
 
 export default function Features() {
   return (
-    <section className="py-24 px-6 bg-white">
+    <section className="bg-[#08120b] py-24">
+      <div className="mx-auto max-w-7xl px-6">
 
-      <h2 className="text-4xl font-bold text-center text-green-700 mb-14">
-        Why Choose AgriVision AI?
-      </h2>
+        <h2 className="text-center text-4xl font-bold text-white">
+          Why Choose AgriVision AI?
+        </h2>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+        <div className="mt-16 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
 
-        {features.map((feature, index) => (
+          {features.map((item, i) => {
+            const Icon = item.icon;
 
-          <div
-            key={index}
-            className="bg-green-50 rounded-3xl shadow-lg p-8 hover:scale-105 transition-all duration-300"
-          >
+            return (
+              <motion.div
+                key={i}
+                whileHover={{ y: -8 }}
+                className="rounded-3xl border border-green-500/20 bg-[#121212] p-8 transition"
+              >
+                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-green-500/20">
+                  <Icon className="h-8 w-8 text-green-400" />
+                </div>
 
-            <div className="text-5xl mb-5">
-              {feature.icon}
-            </div>
+                <h3 className="text-xl font-bold text-white">
+                  {item.title}
+                </h3>
 
-            <h3 className="text-2xl font-bold mb-3">
-              {feature.title}
-            </h3>
+                <p className="mt-4 text-gray-400">
+                  {item.text}
+                </p>
+              </motion.div>
+            );
+          })}
 
-            <p className="text-gray-600">
-              {feature.desc}
-            </p>
-
-          </div>
-
-        ))}
+        </div>
 
       </div>
-
     </section>
   );
 }
