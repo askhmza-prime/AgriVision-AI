@@ -2,7 +2,7 @@
 
 import { predictDisease } from "@/lib/api";
 import PredictionCard from "./PredictionCard";
-import { Upload } from "lucide-react";
+import { Upload, LoaderCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 
@@ -38,7 +38,7 @@ export default function UploadCard() {
 
       setPrediction(result);
 
-      // Small delay so the scan animation feels smooth
+      // Small delay so the scan animation finishes nicely
       setTimeout(() => {
         setLoading(false);
         setShowResult(true);
@@ -56,7 +56,7 @@ export default function UploadCard() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="bg-black/40 backdrop-blur-xl border border-green-500/20 rounded-3xl p-8 shadow-2xl"
+      className="rounded-3xl border border-green-500/20 bg-black/40 p-8 shadow-2xl backdrop-blur-xl"
     >
       <input
         ref={inputRef}
@@ -68,17 +68,17 @@ export default function UploadCard() {
 
       <div
         onClick={() => inputRef.current?.click()}
-        className="border-2 border-dashed border-green-500/40 rounded-2xl p-10 text-center cursor-pointer hover:border-green-400 transition duration-300 overflow-hidden"
+        className="cursor-pointer overflow-hidden rounded-2xl border-2 border-dashed border-green-500/40 p-10 text-center transition duration-300 hover:border-green-400"
       >
         {!preview ? (
           <>
-            <Upload className="mx-auto w-14 h-14 text-green-400" />
+            <Upload className="mx-auto h-14 w-14 text-green-400" />
 
-            <p className="mt-4 text-white font-semibold text-lg">
+            <p className="mt-4 text-lg font-semibold text-white">
               Upload Crop Image
             </p>
 
-            <p className="text-gray-400 mt-2">
+            <p className="mt-2 text-gray-400">
               JPG • PNG • JPEG
             </p>
           </>
@@ -91,7 +91,7 @@ export default function UploadCard() {
             <img
               src={preview}
               alt="Leaf Preview"
-              className="w-full rounded-xl max-h-96 object-cover"
+              className="max-h-96 w-full rounded-xl object-cover"
             />
 
             {loading && (
@@ -114,14 +114,14 @@ export default function UploadCard() {
         <button
           onClick={handlePredict}
           disabled={loading}
-          className="w-full mt-6 bg-gradient-to-r from-green-500 to-emerald-600 py-4 rounded-xl text-white font-bold text-lg hover:scale-[1.02] transition disabled:opacity-50 disabled:cursor-not-allowed"
+          className="mt-6 w-full rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 py-4 text-lg font-bold text-white transition shadow-[0_0_40px_rgba(34,197,94,.45)] hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {loading ? "🤖 Analyzing..." : "🤖 Detect Disease"}
+          {loading ? "Analyzing..." : "🤖 Detect Disease"}
         </button>
       )}
 
       {loading && (
-        <div className="mt-6 text-center">
+        <div className="mt-8 flex flex-col items-center">
           <motion.div
             animate={{ rotate: 360 }}
             transition={{
@@ -129,12 +129,11 @@ export default function UploadCard() {
               duration: 1,
               ease: "linear",
             }}
-            className="text-5xl"
           >
-            🌿
+            <LoaderCircle className="h-14 w-14 text-green-400" />
           </motion.div>
 
-          <p className="text-green-400 mt-4 animate-pulse">
+          <p className="mt-4 animate-pulse text-lg font-medium text-green-400">
             Analyzing leaf...
           </p>
         </div>
