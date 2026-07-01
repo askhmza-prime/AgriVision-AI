@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { Heart } from "lucide-react";
 import { Twitter, Youtube, Instagram, Linkedin } from "lucide-react";
+import { memo } from "react";
 
-export default function Footer() {
+function Footer() {
   return (
     <footer className="border-t border-green-500/20 bg-black">
       {/* Main Footer Grid */}
@@ -38,7 +39,11 @@ export default function Footer() {
                 </Link>
               </div>
               <div>
-                <Link href="#" className="hover:text-green-400 transition">
+                <Link
+                  href="#"
+                  prefetch={false}
+                  className="hover:text-green-400 transition"
+                >
                   Tips
                 </Link>
               </div>
@@ -50,22 +55,38 @@ export default function Footer() {
             <h3 className="font-bold text-white text-sm">Resources</h3>
             <div className="mt-4 space-y-3 text-sm text-gray-400">
               <div>
-                <Link href="#" className="hover:text-green-400 transition">
+                <Link
+                  href="#"
+                  prefetch={false}
+                  className="hover:text-green-400 transition"
+                >
                   Crop Care Tips
                 </Link>
               </div>
               <div>
-                <Link href="#" className="hover:text-green-400 transition">
+                <Link
+                  href="#"
+                  prefetch={false}
+                  className="hover:text-green-400 transition"
+                >
                   Common Diseases
                 </Link>
               </div>
               <div>
-                <Link href="#" className="hover:text-green-400 transition">
+                <Link
+                  href="#"
+                  prefetch={false}
+                  className="hover:text-green-400 transition"
+                >
                   Treatment Guide
                 </Link>
               </div>
               <div>
-                <Link href="#" className="hover:text-green-400 transition">
+                <Link
+                  href="#"
+                  prefetch={false}
+                  className="hover:text-green-400 transition"
+                >
                   Contact Us
                 </Link>
               </div>
@@ -116,24 +137,28 @@ export default function Footer() {
           <div className="flex items-center gap-4">
             <Link
               href="#"
+              prefetch={false}
               className="text-gray-400 hover:text-green-400 transition"
             >
               <Twitter className="w-5 h-5" />
             </Link>
             <Link
               href="#"
+              prefetch={false}
               className="text-gray-400 hover:text-green-400 transition"
             >
               <Youtube className="w-5 h-5" />
             </Link>
             <Link
               href="#"
+              prefetch={false}
               className="text-gray-400 hover:text-green-400 transition"
             >
               <Instagram className="w-5 h-5" />
             </Link>
             <Link
               href="#"
+              prefetch={false}
               className="text-gray-400 hover:text-green-400 transition"
             >
               <Linkedin className="w-5 h-5" />
@@ -151,3 +176,5 @@ export default function Footer() {
     </footer>
   );
 }
+
+export default memo(Footer);
