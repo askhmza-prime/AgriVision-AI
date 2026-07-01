@@ -17,6 +17,7 @@ export default function UploadCard() {
     if (!selectedFile) return;
 
     setFile(selectedFile);
+    setPrediction(null); // Clear previous prediction
 
     const reader = new FileReader();
 
@@ -38,7 +39,7 @@ export default function UploadCard() {
       setPrediction(result);
     } catch (error) {
       console.error(error);
-      alert("Prediction failed.");
+      alert("Prediction failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -46,7 +47,6 @@ export default function UploadCard() {
 
   return (
     <div className="bg-white rounded-3xl shadow-xl p-6">
-
       <input
         type="file"
         accept="image/*"
@@ -57,7 +57,7 @@ export default function UploadCard() {
 
       <div
         onClick={() => inputRef.current?.click()}
-        className="border-2 border-dashed border-green-500 rounded-2xl h-72 flex flex-col justify-center items-center cursor-pointer hover:bg-green-50 transition"
+        className="border-2 border-dashed border-green-500 rounded-2xl h-72 flex flex-col justify-center items-center cursor-pointer hover:bg-green-50 transition overflow-hidden"
       >
         {image ? (
           <img
@@ -84,19 +84,49 @@ export default function UploadCard() {
         <button
           onClick={handlePredict}
           disabled={loading}
-          className="w-full mt-6 bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-semibold transition disabled:opacity-50"
+          className="w-full mt-6 bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? "Predicting..." : "Predict Disease"}
         </button>
       )}
 
       {prediction && (
-        <div className="mt-6 p-4 bg-green-50 rounded-xl">
-          <h3 className="font-bold text-lg">Prediction</h3>
+        <div className="mt-6 rounded-2xl bg-green-50 border border-green-200 p-6 shadow-md">
+          <h2 className="text-2xl font-bold text-green-700 flex items-center gap-2">
+            🌿 Prediction Result
+          </h2>
 
-          <pre className="mt-2 text-sm whitespace-pre-wrap">
-            {JSON.stringify(prediction, null, 2)}
-          </pre>
+          <div className="mt-5 space-y-4">
+            <div>
+              <p className="text-sm text-gray-500">Disease</p>
+              <p className="text-lg font-semibold text-gray-900">
+                {prediction.disease || "Unknown"}
+              </p>
+            </div>
+
+            <div>
+              <p className="text-sm text-gray-500">Confidence</p>
+              <p className="text-lg font-semibold text-green-700">
+                {prediction.confidence != null
+                  ? `${prediction.confidence}%`
+                  : "N/A"}
+              </p>
+            </div>
+
+            <div>
+              <p className="text-sm text-gray-500">Treatment</p>
+              <p className="text-gray-700">
+                {prediction.treatment || "No treatment available."}
+              </p>
+            </div>
+
+            <div>
+              <p className="text-sm text-gray-500">Prevention</p>
+              <p className="text-gray-700">
+                {prediction.prevention || "No prevention information available."}
+              </p>
+            </div>
+          </div>
         </div>
       )}
     </div>
