@@ -4,7 +4,41 @@ import { predictDisease } from "@/lib/api";
 import PredictionCard from "./PredictionCard";
 import { Upload, LoaderCircle, Sparkles, X } from "lucide-react";
 import { motion } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
+
+const LOADING_STAGES = [
+  "📤 Uploading image...",
+  "🧠 Preparing AI model...",
+  "🌿 Analyzing leaf...",
+  "📄 Generating result...",
+];
+
+async function compressImage(file: File): Promise<File> {
+  const bitmap = await createImageBitmap(file);
+
+  const canvas = document.createElement("canvas");
+  canvas.width = 224;
+  canvas.height = 224;
+
+  const ctx = canvas.getContext("2d")!;
+  ctx.drawImage(bitmap, 0, 0, 224, 224);
+
+  const blob = await new Promise<Blob>((resolve) => {
+    canvas.toBlob(
+      (b) => resolve(b!),
+      "image/jpeg",
+      0.85
+    );
+  });
+
+  return new File(
+    [blob],
+    "leaf.jpg",
+    {
+      type: "image/jpeg",
+    }
+  );
+}
 
 export default function UploadCard() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -17,13 +51,7 @@ export default function UploadCard() {
   const [loadingStage, setLoadingStage] = useState(0);
   const [fileName, setFileName] = useState<string>("");
   const [fileSize, setFileSize] = useState<string>("");
-
-  const loadingStages = [
-    "📤 Uploading image...",
-    "🧠 Running AI model...",
-    "🌿 Detecting disease...",
-    "📄 Generating report...",
-  ];
+  const [progress, setProgress] = useState(15);
 
   // Cleanup preview URL on unmount or when preview changes
   useEffect(() => {
@@ -32,20 +60,22 @@ export default function UploadCard() {
     };
   }, [preview]);
 
-  // Simulate loading stages
+  // Progress bar with loading stages
   useEffect(() => {
     if (!loading) return;
 
-    const stageInterval = setInterval(() => {
-      setLoadingStage((prev) => {
-        if (prev < loadingStages.length - 1) {
-          return prev + 1;
-        }
-        return prev;
-      });
-    }, 800);
+    const values = [15, 34, 61, 82, 96];
+    let stage = 0;
 
-    return () => clearInterval(stageInterval);
+    const interval = setInterval(() => {
+      if (stage < values.length - 1) {
+        stage++;
+        setProgress(values[stage]);
+        setLoadingStage(Math.min(stage, LOADING_STAGES.length - 1));
+      }
+    }, 600);
+
+    return () => clearInterval(interval);
   }, [loading]);
 
   const formatFileSize = (bytes: number): string => {
@@ -56,7 +86,9 @@ export default function UploadCard() {
     return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + " " + sizes[i];
   };
 
-  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImage = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    if (loading) return;
+
     const selectedFile = e.target.files?.[0];
 
     if (!selectedFile) return;
@@ -68,11 +100,16 @@ export default function UploadCard() {
 
     setPrediction(null);
     setShowResult(false);
-  };
+  }, [loading]);
 
-  const handleRemoveImage = () => {
-    setFile(null);
+  const handleRemoveImage = useCallback(() => {
+    if (loading) return;
+
+    if (preview) {
+      URL.revokeObjectURL(preview);
+    }
     setPreview(null);
+    setFile(null);
     setFileName("");
     setFileSize("");
     setPrediction(null);
@@ -80,28 +117,32 @@ export default function UploadCard() {
     if (inputRef.current) {
       inputRef.current.value = "";
     }
-  };
+  }, [loading, preview]);
 
-  const handlePredict = async () => {
-    if (!file) return;
+  const handlePredict = useCallback(async () => {
+    if (!file || loading) return;
 
     try {
       setLoading(true);
+      setProgress(15);
       setShowResult(false);
       setLoadingStage(0);
 
-      const result = await predictDisease(file);
+      const optimizedImage = await compressImage(file);
+      const result = await predictDisease(optimizedImage);
 
       setPrediction(result);
-      
-        setLoading(false);
-        setShowResult(true);
+      setProgress(100);
+      setLoading(false);
+      setShowResult(true);
     } catch (error) {
       console.error(error);
       setLoading(false);
+      // Replace with your toast library when available
+      // toast.error("Prediction failed. Please try again.");
       alert("Prediction failed. Please try again.");
     }
-  };
+  }, [file, loading]);
 
   return (
     <motion.div
@@ -189,7 +230,8 @@ export default function UploadCard() {
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.2 }}
                 onClick={handleRemoveImage}
-                className="absolute top-4 right-4 bg-gray-800/80 hover:bg-gray-700 rounded-full p-2 z-30 transition"
+                disabled={loading}
+                className="absolute top-4 right-4 bg-gray-800/80 hover:bg-gray-700 rounded-full p-2 z-30 transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <X className="w-5 h-5 text-white" />
               </motion.button>
@@ -261,10 +303,23 @@ export default function UploadCard() {
             exit={{ opacity: 0, y: -10 }}
             className="mt-4 text-base font-medium text-green-400"
           >
-            {loadingStages[loadingStage]}
+            {LOADING_STAGES[loadingStage]}
           </motion.p>
 
-          <p className="mt-2 text-sm text-gray-400">
+          <div className="w-full max-w-sm mt-5">
+            <div className="h-2 rounded-full bg-white/10 overflow-hidden">
+              <div
+                className="h-full bg-green-500 transition-all duration-500"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+
+            <p className="mt-2 text-center text-sm text-gray-400">
+              {progress}%
+            </p>
+          </div>
+
+          <p className="mt-4 text-sm text-gray-400">
             Please wait while our model processes the image.
           </p>
         </div>
