@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Brain, CheckCircle } from "lucide-react";
@@ -119,9 +120,7 @@ export default function Hero() {
             />
 
             {/* Leaf */}
-            <motion.img
-              src="/leaf.jpg"
-              alt="Leaf"
+            <motion.div
               animate={{
                 y: [0, -12, 0],
                 rotate: [0, 2, 0],
@@ -130,8 +129,17 @@ export default function Hero() {
                 repeat: Infinity,
                 duration: 5,
               }}
-              className="relative z-10 w-full max-w-lg rounded-3xl drop-shadow-[0_0_60px_rgba(34,197,94,.6)]"
-            />
+              className="relative z-10 w-full max-w-lg"
+            >
+              <Image
+                src="/leaf.jpg"
+                alt="Leaf"
+                width={700}
+                height={700}
+                priority
+                className="w-full rounded-3xl drop-shadow-[0_0_60px_rgba(34,197,94,.6)]"
+              />
+            </motion.div>
 
             {/* Radar */}
             <div className="absolute right-10 top-14">
