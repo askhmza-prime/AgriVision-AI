@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning>
+      <body suppressHydrationWarning className="bg-[#050b07] text-white overflow-x-hidden">
         <RootLayoutClient>
           {children}
         </RootLayoutClient>
