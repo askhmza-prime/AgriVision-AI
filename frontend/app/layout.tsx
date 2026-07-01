@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import CursorGlow from "@/components/CursorGlow";
+import PageTransition from "@/components/PageTransition";
 
 export const metadata: Metadata = {
   title: "AgriVision AI",
@@ -16,7 +17,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <CursorGlow />
-        {children}
+
+        <PageTransition>
+          {children}
+        </PageTransition>
       </body>
     </html>
   );
