@@ -17,6 +17,37 @@ export default function Hero() {
         className="absolute right-20 top-40 w-72 h-72 rounded-full bg-green-500/10 blur-[120px]"
       />
 
+      {/* Floating Leaf 1 */}
+      <motion.div
+        animate={{
+          y: [0, -20, 0],
+          x: [0, 15, 0],
+          rotate: [0, 15, 0],
+        }}
+        transition={{
+          repeat: Infinity,
+          duration: 5,
+        }}
+        className="absolute top-40 right-24 text-5xl select-none"
+      >
+        🍃
+      </motion.div>
+
+      {/* Floating Leaf 2 */}
+      <motion.div
+        animate={{
+          y: [0, 25, 0],
+          rotate: [0, -15, 0],
+        }}
+        transition={{
+          repeat: Infinity,
+          duration: 6,
+        }}
+        className="absolute bottom-40 left-16 text-4xl select-none"
+      >
+        🍃
+      </motion.div>
+
       <div className="relative max-w-7xl mx-auto px-6 py-28 grid lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
         {/* Left Content */}
         <motion.div
@@ -24,7 +55,7 @@ export default function Hero() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
+          <h1 className="text-4xl md:text-6xl font-extrabold leading-tight text-white">
             Detect Crop Diseases
             <br />
             <span className="text-green-400">
@@ -51,7 +82,7 @@ export default function Hero() {
 
           <Link
             href="/detect"
-            className="inline-block mt-10 px-8 py-4 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold shadow-xl shadow-green-500/30 hover:scale-105 transition-all duration-300"
+            className="inline-block mt-10 px-8 py-4 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold hover:scale-105 transition-all duration-300 shadow-[0_0_40px_rgba(34,197,94,.45)]"
           >
             Start Detecting 🌿
           </Link>
@@ -64,10 +95,13 @@ export default function Hero() {
           transition={{ duration: 0.8 }}
           className="relative flex justify-end lg:justify-center"
         >
+          {/* AI Pulse Glow */}
+          <div className="absolute w-96 h-96 rounded-full bg-green-500/20 blur-[120px] animate-pulse" />
+
           {/* Decorative Glow */}
           <div className="absolute w-[420px] h-[420px] rounded-full bg-green-500/15 blur-[100px]" />
 
-          {/* Floating Leaf */}
+          {/* Floating Leaf Image */}
           <motion.img
             src="/leaf.jpg"
             alt="Leaf"
