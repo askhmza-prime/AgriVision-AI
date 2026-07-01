@@ -74,14 +74,30 @@ export default function UploadCard() {
             </p>
           </>
         ) : (
-          <motion.img
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4 }}
-            src={preview}
-            alt="Leaf Preview"
-            className="rounded-xl w-full max-h-96 object-cover"
-          />
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="relative overflow-hidden rounded-xl"
+          >
+            <img
+              src={preview}
+              alt="Leaf Preview"
+              className="w-full rounded-xl max-h-96 object-cover"
+            />
+
+            {loading && (
+              <motion.div
+                initial={{ y: "-100%" }}
+                animate={{ y: "100%" }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 1,
+                  ease: "linear",
+                }}
+                className="absolute inset-x-0 h-2 bg-green-400 shadow-[0_0_30px_#22c55e]"
+              />
+            )}
+          </motion.div>
         )}
       </div>
 
@@ -89,10 +105,30 @@ export default function UploadCard() {
         <button
           onClick={handlePredict}
           disabled={loading}
-          className="w-full mt-6 py-4 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold shadow-xl shadow-green-500/30 hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full mt-6 bg-gradient-to-r from-green-500 to-emerald-600 py-4 rounded-xl text-white font-bold text-lg hover:scale-[1.02] transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {loading ? "Predicting..." : "🌿 Predict Disease"}
+          {loading ? "🤖 Analyzing..." : "🤖 Detect Disease"}
         </button>
+      )}
+
+      {loading && (
+        <div className="mt-6 text-center">
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{
+              repeat: Infinity,
+              duration: 1,
+              ease: "linear",
+            }}
+            className="text-5xl"
+          >
+            🌿
+          </motion.div>
+
+          <p className="text-green-400 mt-4 animate-pulse font-medium">
+            Analyzing leaf...
+          </p>
+        </div>
       )}
 
       {prediction && (
