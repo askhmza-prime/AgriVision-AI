@@ -1,20 +1,6 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import "./globals.css";
-
-const CursorGlow = dynamic(
-  () => import("@/components/CursorGlow"),
-  {
-    ssr: false,
-  }
-);
-
-const PageTransition = dynamic(
-  () => import("@/components/PageTransition"),
-  {
-    ssr: false,
-  }
-);
+import RootLayoutClient from "@/components/RootLayoutClient";
 
 export const metadata: Metadata = {
   title: "AgriVision AI",
@@ -29,11 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning>
-        <CursorGlow />
-
-        <PageTransition>
+        <RootLayoutClient>
           {children}
-        </PageTransition>
+        </RootLayoutClient>
       </body>
     </html>
   );
