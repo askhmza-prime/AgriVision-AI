@@ -17,7 +17,7 @@ export default function UploadCard() {
     if (!selectedFile) return;
 
     setFile(selectedFile);
-    setPrediction(null); // Clear previous prediction
+    setPrediction(null);
 
     const reader = new FileReader();
 
@@ -107,8 +107,9 @@ export default function UploadCard() {
             <div>
               <p className="text-sm text-gray-500">Confidence</p>
               <p className="text-lg font-semibold text-green-700">
-                {prediction.confidence != null
-                  ? `${prediction.confidence}%`
+                {prediction.confidence !== null &&
+                prediction.confidence !== undefined
+                  ? `${Number(prediction.confidence).toFixed(2)}%`
                   : "N/A"}
               </p>
             </div>
