@@ -1,4 +1,6 @@
-const API_URL = "https://agrivision-ai-ktvr.onrender.com/predict";
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://agrivision-ai-ktvr.onrender.com/predict";
 
 export async function predictDisease(file: File) {
   const formData = new FormData();
