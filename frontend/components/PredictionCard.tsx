@@ -39,12 +39,25 @@ export default function PredictionCard({
         Confidence
       </p>
 
-      <div className="mt-4 h-4 overflow-hidden rounded-full bg-gray-700">
+      <div className="relative mt-4 h-4 overflow-hidden rounded-full bg-gray-700">
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${confidence}%` }}
           transition={{ duration: 1.5 }}
           className="h-full rounded-full bg-gradient-to-r from-green-400 to-emerald-500 shadow-[0_0_20px_rgba(34,197,94,.6)]"
+        />
+
+        {/* Shine Effect */}
+        <motion.div
+          animate={{
+            x: ["-100%", "120%"],
+          }}
+          transition={{
+            repeat: Infinity,
+            duration: 2,
+            ease: "linear",
+          }}
+          className="absolute inset-y-0 w-16 bg-white/30 blur-md"
         />
       </div>
 
