@@ -1,6 +1,7 @@
 "use client";
 
 import { predictDisease } from "@/lib/api";
+import PredictionCard from "./PredictionCard";
 import { Upload } from "lucide-react";
 import { motion } from "framer-motion";
 import { useRef, useState } from "react";
@@ -12,6 +13,7 @@ export default function UploadCard() {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [prediction, setPrediction] = useState<any>(null);
+  const [showResult, setShowResult] = useState(false);
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -19,9 +21,10 @@ export default function UploadCard() {
     if (!selectedFile) return;
 
     setFile(selectedFile);
-    setPrediction(null);
-
     setPreview(URL.createObjectURL(selectedFile));
+
+    setPrediction(null);
+    setShowResult(false);
   };
 
   const handlePredict = async () => {
@@ -29,15 +32,21 @@ export default function UploadCard() {
 
     try {
       setLoading(true);
+      setShowResult(false);
 
       const result = await predictDisease(file);
 
       setPrediction(result);
+
+      // Small delay so the scan animation feels smooth
+      setTimeout(() => {
+        setLoading(false);
+        setShowResult(true);
+      }, 500);
     } catch (error) {
       console.error(error);
-      alert("Prediction failed. Please try again.");
-    } finally {
       setLoading(false);
+      alert("Prediction failed. Please try again.");
     }
   };
 
@@ -125,56 +134,19 @@ export default function UploadCard() {
             🌿
           </motion.div>
 
-          <p className="text-green-400 mt-4 animate-pulse font-medium">
+          <p className="text-green-400 mt-4 animate-pulse">
             Analyzing leaf...
           </p>
         </div>
       )}
 
-      {prediction && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mt-6 rounded-2xl bg-green-500/10 border border-green-500/20 p-6"
-        >
-          <h2 className="text-2xl font-bold text-green-400 flex items-center gap-2">
-            🌿 Prediction Result
-          </h2>
-
-          <div className="mt-5 space-y-4 text-white">
-            <div>
-              <p className="text-sm text-gray-400">Disease</p>
-              <p className="text-xl font-semibold">
-                {prediction.disease || "Unknown"}
-              </p>
-            </div>
-
-            <div>
-              <p className="text-sm text-gray-400">Confidence</p>
-              <p className="text-xl font-semibold text-green-400">
-                {prediction.confidence !== null &&
-                prediction.confidence !== undefined
-                  ? `${Number(prediction.confidence).toFixed(2)}%`
-                  : "N/A"}
-              </p>
-            </div>
-
-            <div>
-              <p className="text-sm text-gray-400">Treatment</p>
-              <p className="text-gray-200">
-                {prediction.treatment || "No treatment available."}
-              </p>
-            </div>
-
-            <div>
-              <p className="text-sm text-gray-400">Prevention</p>
-              <p className="text-gray-200">
-                {prediction.prevention ||
-                  "No prevention information available."}
-              </p>
-            </div>
-          </div>
-        </motion.div>
+      {showResult && prediction && (
+        <PredictionCard
+          disease={prediction.disease}
+          confidence={Number(prediction.confidence)}
+          treatment={prediction.treatment}
+          prevention={prediction.prevention}
+        />
       )}
     </motion.div>
   );
