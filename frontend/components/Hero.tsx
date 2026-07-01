@@ -15,6 +15,21 @@ export default function Hero() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(34,197,94,.25),transparent_45%)]" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />
 
+      {/* AI Status */}
+      <div className="absolute top-12 right-12 z-50 rounded-xl border border-green-500/20 bg-black/70 p-4 backdrop-blur-xl">
+        <p className="font-semibold text-green-400">
+          AI Status
+        </p>
+
+        <p className="mt-2 text-white">
+          🟢 Online
+        </p>
+
+        <p className="text-xs text-gray-400">
+          TensorFlow Ready
+        </p>
+      </div>
+
       {/* Floating Blur */}
       <motion.div
         animate={{ y: [0, -20, 0] }}
