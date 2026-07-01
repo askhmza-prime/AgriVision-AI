@@ -2,12 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import BackgroundEffects from "./BackgroundEffects";
 import { motion } from "framer-motion";
 import { Brain, CheckCircle } from "lucide-react";
 
 export default function Hero() {
   return (
     <section className="relative min-h-screen overflow-hidden flex items-center bg-[#07130a]">
+      <BackgroundEffects />
+
       {/* Background */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(34,197,94,.25),transparent_45%)]" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />
@@ -163,19 +166,16 @@ export default function Hero() {
                   transition={{ repeat: Infinity, duration: 1 }}
                   className="w-1 rounded bg-green-400"
                 />
-
                 <motion.div
                   animate={{ height: [25, 8, 25] }}
                   transition={{ repeat: Infinity, duration: 1 }}
                   className="w-1 rounded bg-green-400"
                 />
-
                 <motion.div
                   animate={{ height: [8, 20, 8] }}
                   transition={{ repeat: Infinity, duration: 1 }}
                   className="w-1 rounded bg-green-400"
                 />
-
                 <motion.div
                   animate={{ height: [20, 12, 20] }}
                   transition={{ repeat: Infinity, duration: 1 }}
