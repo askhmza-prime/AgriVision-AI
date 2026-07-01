@@ -215,6 +215,9 @@ function Hero() {
           </div>
         </motion.div>
       </div>
+
+      {/* Bottom fade gradient */}
+      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-b from-transparent to-[#050b07]" />
     </section>
   );
 }
