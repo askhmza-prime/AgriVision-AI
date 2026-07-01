@@ -1,22 +1,9 @@
 "use client";
 
 import UploadCard from "@/components/UploadCard";
-import PredictionCard from "@/components/PredictionCard";
 import { useState } from "react";
 
 export default function DetectPage() {
-
-  const [loading, setLoading] = useState(false);
-
-  const predict = () => {
-
-    setLoading(true);
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 2500);
-
-  };
 
   return (
 
@@ -42,15 +29,6 @@ export default function DetectPage() {
 
         </div>
 
-        <button
-          onClick={predict}
-          className="w-full mt-8 bg-green-600 text-white py-4 rounded-xl text-xl font-bold hover:bg-green-700 transition"
-        >
-
-          🤖 Predict Disease
-
-        </button>
-
         {loading && (
 
           <div className="text-center mt-8">
@@ -64,17 +42,6 @@ export default function DetectPage() {
             </p>
 
           </div>
-
-        )}
-
-        {!loading && (
-
-          <PredictionCard
-            disease="Tomato Early Blight"
-            confidence={96.8}
-            treatment="Apply Mancozeb fungicide and remove infected leaves."
-            prevention="Avoid overhead watering and rotate crops regularly."
-          />
 
         )}
 
