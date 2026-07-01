@@ -80,7 +80,7 @@ export default function Hero() {
               repeat: Infinity,
               duration: 4,
             }}
-            src="/leaf.png"
+            src="/leaf.jpg"
             alt="Leaf"
             className="w-[480px] drop-shadow-[0_0_50px_rgba(34,197,94,.6)]"
           />
