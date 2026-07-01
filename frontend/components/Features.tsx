@@ -1,68 +1,66 @@
 "use client";
 
-import { Brain, ScanSearch, ShieldCheck, Smartphone } from "lucide-react";
+import { Brain, Zap, Leaf, Users } from "lucide-react";
 import { motion } from "framer-motion";
 
 const features = [
   {
-    icon: ScanSearch,
-    title: "Disease Detection",
-    text: "Upload a crop image and detect diseases instantly.",
-  },
-  {
     icon: Brain,
-    title: "AI Powered",
-    text: "Deep learning model trained for high accuracy.",
+    title: "AI-Powered",
+    description: "Advanced deep learning for accurate results.",
   },
   {
-    icon: ShieldCheck,
+    icon: Zap,
+    title: "Instant Results",
+    description: "Get disease detection in seconds.",
+  },
+  {
+    icon: Leaf,
     title: "Treatment Guide",
-    text: "Get prevention and treatment suggestions instantly.",
+    description: "Personalized treatment and prevention tips.",
   },
   {
-    icon: Smartphone,
-    title: "Responsive",
-    text: "Works beautifully on desktop, tablet and mobile.",
+    icon: Users,
+    title: "Farmer Friendly",
+    description: "Simple, easy to use for everyone.",
   },
 ];
 
 export default function Features() {
   return (
-    <section className="bg-[#08120b] py-24">
-      <div className="mx-auto max-w-7xl px-6">
-
-        <h2 className="text-center text-4xl font-bold text-white">
-          Why Choose AgriVision AI?
-        </h2>
-
-        <div className="mt-16 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
-
-          {features.map((item, i) => {
-            const Icon = item.icon;
-
+    <section className="bg-[#07130a] py-20 px-6">
+      <div className="mx-auto max-w-7xl">
+        {/* Four Horizontal Feature Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {features.map((feature, i) => {
+            const Icon = feature.icon;
             return (
               <motion.div
                 key={i}
-                whileHover={{ y: -8 }}
-                className="rounded-3xl border border-green-500/20 bg-[#121212] p-8 transition"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                viewport={{ once: true }}
+                className="flex flex-col items-center text-center"
               >
-                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-green-500/20">
-                  <Icon className="h-8 w-8 text-green-400" />
+                {/* Icon Circle */}
+                <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-green-500/20">
+                  <Icon className="h-7 w-7 text-green-400" />
                 </div>
 
-                <h3 className="text-xl font-bold text-white">
-                  {item.title}
+                {/* Title */}
+                <h3 className="font-bold text-white text-lg">
+                  {feature.title}
                 </h3>
 
-                <p className="mt-4 text-gray-400">
-                  {item.text}
+                {/* Description */}
+                <p className="mt-2 text-sm text-gray-400">
+                  {feature.description}
                 </p>
               </motion.div>
             );
           })}
-
         </div>
-
       </div>
     </section>
   );
