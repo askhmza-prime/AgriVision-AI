@@ -42,7 +42,7 @@ function Features() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
                 viewport={{ once: true }}
-                className="flex flex-col items-center text-center"
+                className="flex flex-col items-center text-center rounded-2xl bg-white/5 backdrop-blur-xl border border-green-500/10 p-6 hover:border-green-500/20 transition"
               >
                 {/* Icon Circle */}
                 <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-green-500/20">
