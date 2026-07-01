@@ -93,11 +93,9 @@ export default function UploadCard() {
       const result = await predictDisease(file);
 
       setPrediction(result);
-
-      setTimeout(() => {
+      
         setLoading(false);
         setShowResult(true);
-      }, 500);
     } catch (error) {
       console.error(error);
       setLoading(false);
