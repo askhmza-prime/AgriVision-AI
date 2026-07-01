@@ -2,36 +2,48 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 export default function CTA() {
   return (
-    <section className="bg-[#07130a] py-28">
+    <section className="bg-[#07130a] py-24 px-6">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left - Text Section */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+              Healthy Crops,{" "}
+              <span className="text-green-400">Better Future 🌿</span>
+            </h2>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        className="mx-auto max-w-5xl rounded-[40px] border border-green-500/20 bg-gradient-to-r from-green-900/30 to-black/40 p-14 text-center backdrop-blur-xl"
-      >
+            <p className="mt-6 text-lg text-gray-300 leading-8">
+              Protect your crops today with the power of AI.
+            </p>
+          </motion.div>
 
-        <h2 className="text-5xl font-bold text-white">
-          Healthy Crops.
-          <br />
-          Smarter Farming.
-        </h2>
-
-        <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-300">
-          Detect diseases before they spread and improve your crop health using AI.
-        </p>
-
-        <Link
-          href="/detect"
-          className="mt-10 inline-block rounded-2xl bg-green-500 px-10 py-5 font-bold text-white transition hover:scale-105"
-        >
-          Start Detecting
-        </Link>
-
-      </motion.div>
-
+          {/* Right - Button Section */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="flex items-center justify-center lg:justify-end"
+          >
+            <Link
+              href="/detect"
+              className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 px-8 py-4 font-bold text-white shadow-[0_0_40px_rgba(34,197,94,.45)] hover:scale-105 transition"
+            >
+              Start Detecting Now
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </motion.div>
+        </div>
+      </div>
     </section>
   );
 }
