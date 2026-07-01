@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
 import cv2
 
-from predictor import predict
+from .predictor import predict
 
 app = FastAPI(title="AgriVision AI")
 
