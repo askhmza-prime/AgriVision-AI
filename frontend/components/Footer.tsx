@@ -1,26 +1,64 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
-    <footer className="bg-green-950 text-white py-10 text-center">
+    <footer className="border-t border-green-500/20 bg-black">
 
-      <h2 className="text-2xl font-bold">
+      <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-4">
 
-        🌿 AgriVision AI
+        <div>
+          <h2 className="text-2xl font-bold text-green-400">
+            AgriVision AI
+          </h2>
 
-      </h2>
+          <p className="mt-4 text-gray-400">
+            AI Powered Crop Disease Detection platform.
+          </p>
+        </div>
 
-      <p className="mt-4 text-gray-300">
+        <div>
+          <h3 className="font-bold text-white">
+            Navigation
+          </h3>
 
-        AI Powered Crop Disease Detection
+          <div className="mt-4 space-y-3 text-gray-400">
+            <Link href="/">Home</Link>
+            <br />
+            <Link href="/detect">Detect</Link>
+            <br />
+            <Link href="/about">About</Link>
+          </div>
+        </div>
 
-      </p>
+        <div>
+          <h3 className="font-bold text-white">
+            Features
+          </h3>
 
-      <p className="mt-8 text-sm text-gray-500">
+          <div className="mt-4 space-y-3 text-gray-400">
+            AI Detection
+            <br />
+            Treatment Guide
+            <br />
+            Prevention Tips
+          </div>
+        </div>
 
-        © 2026 AgriVision AI
-        <br />
-        Built by HMZA
+        <div>
+          <h3 className="font-bold text-white">
+            Contact
+          </h3>
 
-      </p>
+          <p className="mt-4 text-gray-400">
+            support@agrivision.ai
+          </p>
+        </div>
+
+      </div>
+
+      <div className="border-t border-green-500/20 py-6 text-center text-gray-500">
+        © 2026 AgriVision AI. All rights reserved.
+      </div>
 
     </footer>
   );
