@@ -2,6 +2,7 @@
 
 import { Brain, Zap, Leaf, Users } from "lucide-react";
 import { motion } from "framer-motion";
+import { memo } from "react";
 
 const features = [
   {
@@ -26,20 +27,20 @@ const features = [
   },
 ];
 
-export default function Features() {
+function Features() {
   return (
     <section className="bg-[#07130a] py-20 px-6">
       <div className="mx-auto max-w-7xl">
         {/* Four Horizontal Feature Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {features.map((feature, i) => {
+          {features.map((feature) => {
             const Icon = feature.icon;
             return (
               <motion.div
-                key={i}
+                key={feature.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+                transition={{ duration: 0.5 }}
                 viewport={{ once: true }}
                 className="flex flex-col items-center text-center"
               >
@@ -65,3 +66,5 @@ export default function Features() {
     </section>
   );
 }
+
+export default memo(Features);
