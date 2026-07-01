@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 
 from .model import model
-from diseases import DISEASES
+from .diseases import DISEASES
 
 
 def predict(image):
