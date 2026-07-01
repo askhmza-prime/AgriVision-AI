@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Shield, Pill, CheckCircle } from "lucide-react";
+import { memo, useMemo } from "react";
 
 interface Props {
   disease: string;
@@ -10,12 +11,22 @@ interface Props {
   prevention: string;
 }
 
-export default function PredictionCard({
+function PredictionCard({
   disease,
   confidence,
   treatment,
   prevention,
 }: Props) {
+  const confidenceWidth = useMemo(
+    () => `${confidence}%`,
+    [confidence]
+  );
+
+  const confidenceText = useMemo(
+    () => confidence.toFixed(2),
+    [confidence]
+  );
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 60 }}
@@ -62,7 +73,7 @@ export default function PredictionCard({
         <div className="mt-4 h-4 rounded-full bg-gray-800 overflow-hidden">
           <motion.div
             initial={{ width: 0 }}
-            animate={{ width: `${confidence}%` }}
+            animate={{ width: confidenceWidth }}
             transition={{ duration: 1.2 }}
             className="h-full bg-gradient-to-r from-green-400 to-emerald-500"
           />
@@ -74,7 +85,7 @@ export default function PredictionCard({
           transition={{ delay: 0.8 }}
           className="mt-2 font-bold text-green-400 text-xl"
         >
-          {confidence.toFixed(2)}%
+          {confidenceText}%
         </motion.p>
       </div>
 
@@ -147,3 +158,5 @@ export default function PredictionCard({
     </motion.div>
   );
 }
+
+export default memo(PredictionCard);
