@@ -8,7 +8,7 @@ import { Brain, CheckCircle } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen lg:min-h-[760px] overflow-hidden flex items-center bg-[#07130a]">
+    <section className="relative min-h-screen sm:min-h-[760px] overflow-hidden flex items-center bg-[#07130a]">
       <BackgroundEffects />
 
       {/* Background with blurred crop image + dark overlay */}
@@ -26,15 +26,14 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/80" />
 
       {/* Content */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-28 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-24 items-center w-full">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-28 grid md:grid-cols-2 gap-8 sm:gap-12 xl:gap-24 items-center w-full">
         {/* Left */}
         <motion.div
           initial={{ opacity: 0, x: -80 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="order-2 lg:order-1"
         >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-tight text-white max-w-full lg:max-w-[520px]">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl xl:text-7xl font-extrabold leading-tight text-white max-w-[520px]">
             Detect Crop Diseases
             <br />
             <span className="text-green-400">
@@ -42,11 +41,11 @@ export default function Hero() {
             </span>
           </h1>
 
-          <p className="mt-6 sm:mt-8 max-w-full lg:max-w-[520px] text-base sm:text-lg leading-7 sm:leading-8 text-gray-300">
+          <p className="mt-6 sm:mt-8 max-w-[520px] text-base sm:text-lg leading-7 sm:leading-8 text-gray-300">
             Upload a crop image and our AI will detect diseases, provide treatment tips, and help you protect your crops.
           </p>
 
-          <div className="mt-8 sm:mt-10 space-y-3 sm:space-y-4">
+          <div className="mt-8 sm:mt-10 space-y-4">
             <div className="flex items-center gap-3 text-white">
               <Brain className="w-5 h-5 text-green-400 flex-shrink-0" />
               <span className="text-sm sm:text-base">Deep Learning Powered</span>
@@ -60,25 +59,25 @@ export default function Hero() {
 
           <Link
             href="/detect"
-            className="inline-block mt-8 sm:mt-10 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 px-6 sm:px-8 py-3 font-bold text-white text-sm sm:text-base shadow-[0_0_40px_rgba(34,197,94,.45)] transition-all duration-300 hover:scale-105 active:scale-95"
+            className="inline-block mt-8 sm:mt-10 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 px-6 sm:px-8 py-2.5 sm:py-3 font-bold text-white text-sm sm:text-base shadow-[0_0_40px_rgba(34,197,94,.45)] transition-all duration-300 hover:scale-105"
           >
             Start Detecting 🌿
           </Link>
         </motion.div>
 
-        {/* Right */}
+        {/* Right - Hidden on mobile, visible on md and up */}
         <motion.div
           initial={{ opacity: 0, x: 80 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="relative flex justify-center items-center order-1 lg:order-2 h-auto"
+          className="relative hidden md:flex justify-center items-center h-full"
         >
-          <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:w-[620px] aspect-square">
-            {/* Scanner Corners - Responsive */}
-            <div className="absolute top-0 left-0 w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16 border-l-3 sm:border-l-4 border-t-3 sm:border-t-4 border-green-400 rounded-tl-lg sm:rounded-tl-xl lg:rounded-tl-2xl" />
-            <div className="absolute top-0 right-0 w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16 border-r-3 sm:border-r-4 border-t-3 sm:border-t-4 border-green-400 rounded-tr-lg sm:rounded-tr-xl lg:rounded-tr-2xl" />
-            <div className="absolute bottom-0 left-0 w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16 border-l-3 sm:border-l-4 border-b-3 sm:border-b-4 border-green-400 rounded-bl-lg sm:rounded-bl-xl lg:rounded-bl-2xl" />
-            <div className="absolute bottom-0 right-0 w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16 border-r-3 sm:border-r-4 border-b-3 sm:border-b-4 border-green-400 rounded-br-lg sm:rounded-br-xl lg:rounded-br-2xl" />
+          <div className="relative w-[280px] h-[280px] sm:w-[380px] sm:h-[380px] md:w-[520px] md:h-[520px] lg:w-[620px] lg:h-[620px]">
+            {/* Scanner Corners - Larger */}
+            <div className="absolute top-0 left-0 w-6 h-6 sm:w-10 sm:h-10 md:w-16 md:h-16 border-l-2 sm:border-l-3 md:border-l-4 border-t-2 sm:border-t-3 md:border-t-4 border-green-400 rounded-tl-xl sm:rounded-tl-2xl md:rounded-tl-2xl" />
+            <div className="absolute top-0 right-0 w-6 h-6 sm:w-10 sm:h-10 md:w-16 md:h-16 border-r-2 sm:border-r-3 md:border-r-4 border-t-2 sm:border-t-3 md:border-t-4 border-green-400 rounded-tr-xl sm:rounded-tr-2xl md:rounded-tr-2xl" />
+            <div className="absolute bottom-0 left-0 w-6 h-6 sm:w-10 sm:h-10 md:w-16 md:h-16 border-l-2 sm:border-l-3 md:border-l-4 border-b-2 sm:border-b-3 md:border-b-4 border-green-400 rounded-bl-xl sm:rounded-bl-2xl md:rounded-bl-2xl" />
+            <div className="absolute bottom-0 right-0 w-6 h-6 sm:w-10 sm:h-10 md:w-16 md:h-16 border-r-2 sm:border-r-3 md:border-r-4 border-b-2 sm:border-b-3 md:border-b-4 border-green-400 rounded-br-xl sm:rounded-br-2xl md:rounded-br-2xl" />
 
             {/* Scanner Laser - Thicker */}
             <motion.div
@@ -114,12 +113,12 @@ export default function Hero() {
               />
             </motion.div>
 
-            {/* AI Scanning Badge - Responsive Position */}
+            {/* AI Scanning Badge - Lower Right */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="absolute bottom-4 sm:bottom-8 -right-8 sm:-right-12 lg:-right-12 rounded-xl sm:rounded-2xl border border-green-500/20 bg-black/80 backdrop-blur-xl p-3 sm:p-4 w-40 sm:w-48 z-30"
+              className="absolute bottom-4 -right-6 sm:bottom-8 sm:-right-12 rounded-2xl border border-green-500/20 bg-black/80 backdrop-blur-xl p-3 sm:p-4 w-40 sm:w-48 z-30"
             >
               <p className="font-bold text-green-400 text-xs sm:text-sm">
                 AI Scanning
@@ -129,7 +128,7 @@ export default function Hero() {
                 Leaf...
               </p>
 
-              <div className="mt-2 sm:mt-3 flex gap-1">
+              <div className="mt-3 flex gap-1">
                 <motion.div
                   animate={{ height: [10, 25, 10] }}
                   transition={{ repeat: Infinity, duration: 1 }}
@@ -153,7 +152,7 @@ export default function Hero() {
               </div>
             </motion.div>
 
-            {/* Floating Leaf Particles - Responsive */}
+            {/* Floating Leaf Particles - Subtle */}
             <motion.div
               animate={{
                 y: [0, -30, 0],
@@ -164,7 +163,7 @@ export default function Hero() {
                 repeat: Infinity,
                 duration: 6,
               }}
-              className="absolute top-6 sm:top-12 -right-4 sm:-right-8 text-2xl sm:text-4xl select-none opacity-70 hidden sm:block"
+              className="hidden sm:block absolute top-12 -right-8 text-4xl select-none opacity-70"
             >
               🍃
             </motion.div>
@@ -179,7 +178,7 @@ export default function Hero() {
                 repeat: Infinity,
                 duration: 8,
               }}
-              className="absolute -bottom-4 sm:-bottom-8 -left-4 sm:-left-8 text-2xl sm:text-3xl select-none opacity-70 hidden sm:block"
+              className="hidden sm:block absolute -bottom-8 -left-8 text-3xl select-none opacity-70"
             >
               🍃
             </motion.div>
