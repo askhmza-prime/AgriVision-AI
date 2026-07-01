@@ -2,7 +2,7 @@
 
 import { predictDisease } from "@/lib/api";
 import PredictionCard from "./PredictionCard";
-import { Upload, LoaderCircle, Sparkles, X } from "lucide-react";
+import { Upload, LoaderCircle, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { useRef, useState, useEffect, useCallback } from "react";
 
@@ -138,8 +138,6 @@ export default function UploadCard() {
     } catch (error) {
       console.error(error);
       setLoading(false);
-      // Replace with your toast library when available
-      // toast.error("Prediction failed. Please try again.");
       alert("Prediction failed. Please try again.");
     }
   }, [file, loading]);
@@ -150,7 +148,7 @@ export default function UploadCard() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="max-w-6xl mx-auto rounded-[28px] bg-[#111b16] border border-green-500/20 backdrop-blur-xl p-8"
+      className="max-w-6xl mx-auto rounded-[28px] bg-[#0b1610] border border-green-500/10 backdrop-blur-xl p-6"
     >
       <input
         ref={inputRef}
