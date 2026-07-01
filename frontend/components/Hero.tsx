@@ -82,7 +82,7 @@ export default function Hero() {
             }}
             src="/leaf.jpg"
             alt="Leaf"
-            className=""w-full max-w-md drop-shadow-[0_0_50px_rgba(34,197,94,.6)]"
+            className="w-full max-w-md drop-shadow-[0_0_50px_rgba(34,197,94,.6)]"
           />
 
         </motion.div>
