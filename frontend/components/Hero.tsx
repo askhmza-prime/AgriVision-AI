@@ -27,7 +27,7 @@ export default function Hero() {
           transition={{ duration: .8 }}
         >
 
-          <h1 className="text-6xl font-extrabold text-white leading-tight">
+          <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
             Detect Crop Diseases
             <br />
 
