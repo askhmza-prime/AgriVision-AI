@@ -2,11 +2,19 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import BackgroundEffects from "./BackgroundEffects";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { Brain, CheckCircle } from "lucide-react";
+import { memo } from "react";
 
-export default function Hero() {
+const BackgroundEffects = dynamic(
+  () => import("./BackgroundEffects"),
+  {
+    ssr: false,
+  }
+);
+
+function Hero() {
   return (
     <section className="relative min-h-screen sm:min-h-[760px] overflow-hidden flex items-center bg-[#07130a]">
       <BackgroundEffects />
@@ -18,6 +26,7 @@ export default function Hero() {
           alt="Background Leaf"
           fill
           priority
+          sizes="100vw"
           className="object-cover blur-[80px] opacity-40"
         />
       </div>
@@ -86,6 +95,7 @@ export default function Hero() {
               }}
               transition={{
                 repeat: Infinity,
+                repeatType: "mirror",
                 duration: 2,
                 ease: "linear",
               }}
@@ -100,6 +110,7 @@ export default function Hero() {
               }}
               transition={{
                 repeat: Infinity,
+                repeatType: "mirror",
                 duration: 5,
               }}
               className="relative z-10 w-full h-full"
@@ -109,6 +120,7 @@ export default function Hero() {
                 alt="Leaf"
                 fill
                 priority
+                sizes="(max-width:768px) 100vw, 620px"
                 className="w-full h-full object-cover rounded-2xl sm:rounded-3xl drop-shadow-[0_0_70px_rgba(34,197,94,.75)]"
               />
             </motion.div>
@@ -131,22 +143,38 @@ export default function Hero() {
               <div className="mt-3 flex gap-1">
                 <motion.div
                   animate={{ height: [10, 25, 10] }}
-                  transition={{ repeat: Infinity, duration: 1 }}
+                  transition={{
+                    repeat: Infinity,
+                    repeatType: "mirror",
+                    duration: 1,
+                  }}
                   className="w-1 rounded bg-green-400"
                 />
                 <motion.div
                   animate={{ height: [25, 8, 25] }}
-                  transition={{ repeat: Infinity, duration: 1 }}
+                  transition={{
+                    repeat: Infinity,
+                    repeatType: "mirror",
+                    duration: 1,
+                  }}
                   className="w-1 rounded bg-green-400"
                 />
                 <motion.div
                   animate={{ height: [8, 20, 8] }}
-                  transition={{ repeat: Infinity, duration: 1 }}
+                  transition={{
+                    repeat: Infinity,
+                    repeatType: "mirror",
+                    duration: 1,
+                  }}
                   className="w-1 rounded bg-green-400"
                 />
                 <motion.div
                   animate={{ height: [20, 12, 20] }}
-                  transition={{ repeat: Infinity, duration: 1 }}
+                  transition={{
+                    repeat: Infinity,
+                    repeatType: "mirror",
+                    duration: 1,
+                  }}
                   className="w-1 rounded bg-green-400"
                 />
               </div>
@@ -161,6 +189,7 @@ export default function Hero() {
               }}
               transition={{
                 repeat: Infinity,
+                repeatType: "mirror",
                 duration: 6,
               }}
               className="hidden sm:block absolute top-12 -right-8 text-4xl select-none opacity-70"
@@ -176,6 +205,7 @@ export default function Hero() {
               }}
               transition={{
                 repeat: Infinity,
+                repeatType: "mirror",
                 duration: 8,
               }}
               className="hidden sm:block absolute -bottom-8 -left-8 text-3xl select-none opacity-70"
@@ -188,3 +218,5 @@ export default function Hero() {
     </section>
   );
 }
+
+export default memo(Hero);
