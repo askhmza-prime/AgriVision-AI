@@ -1,5 +1,5 @@
-import dynamic from "next/dynamic";
 import Hero from "@/components/Hero";
+import dynamic from "next/dynamic";
 import UploadCard from "@/components/UploadCard";
 
 const Features = dynamic(() => import("@/components/Features"));
@@ -8,7 +8,7 @@ const Footer = dynamic(() => import("@/components/Footer"));
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-green-50 to-white">
+    <main className="min-h-screen bg-[#050b07] text-white">
       <Hero />
 
       <section className="max-w-6xl mx-auto px-6 py-20">
