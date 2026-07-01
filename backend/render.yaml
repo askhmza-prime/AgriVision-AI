@@ -1,1 +1,15 @@
+services:
+  - type: web
+    name: agrivision-backend
+    runtime: python
+    plan: free
 
+    buildCommand: "pip install -r requirements.txt"
+
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+
+    rootDir: backend
+
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11
