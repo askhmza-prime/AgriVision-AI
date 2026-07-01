@@ -1,5 +1,6 @@
 "use client";
 
+import { predictDisease } from "@/lib/api";
 import { useRef, useState } from "react";
 
 export default function UploadCard() {
