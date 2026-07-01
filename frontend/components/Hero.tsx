@@ -8,15 +8,15 @@ import { Brain, CheckCircle } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen overflow-hidden flex items-center bg-[#07130a]">
+    <section className="relative min-h-screen lg:h-screen overflow-hidden flex items-center bg-[#07130a]">
       <BackgroundEffects />
 
       {/* Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(34,197,94,.25),transparent_45%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_30%,rgba(34,197,94,.35),transparent_35%),radial-gradient(circle_at_30%_70%,rgba(34,197,94,.12),transparent_45%)]" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />
 
       {/* AI Status */}
-      <div className="absolute top-12 right-12 z-50 rounded-xl border border-green-500/20 bg-black/70 p-4 backdrop-blur-xl">
+      <div className="absolute top-28 right-16 z-50 rounded-xl border border-green-500/20 bg-black/70 p-4 backdrop-blur-xl">
         <p className="font-semibold text-green-400">
           AI Status
         </p>
@@ -66,15 +66,43 @@ export default function Hero() {
         🍃
       </motion.div>
 
+      <motion.div
+        animate={{
+          y: [0, -25, 0],
+          rotate: [0, 15, 0],
+        }}
+        transition={{
+          repeat: Infinity,
+          duration: 7,
+        }}
+        className="absolute left-20 top-44 text-4xl select-none"
+      >
+        🍃
+      </motion.div>
+
+      <motion.div
+        animate={{
+          y: [0, 30, 0],
+          rotate: [0, -25, 0],
+        }}
+        transition={{
+          repeat: Infinity,
+          duration: 9,
+        }}
+        className="absolute right-40 bottom-32 text-3xl select-none"
+      >
+        🍃
+      </motion.div>
+
       {/* Content */}
-      <div className="relative max-w-7xl mx-auto px-6 py-28 grid lg:grid-cols-2 gap-20 items-center">
+      <div className="relative max-w-7xl mx-auto px-6 py-28 grid lg:grid-cols-2 gap-12 xl:gap-24 items-center">
         {/* Left */}
         <motion.div
           initial={{ opacity: 0, x: -80 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-5xl md:text-7xl font-extrabold leading-tight text-white">
+          <h1 className="text-5xl md:text-7xl xl:text-8xl font-extrabold leading-tight text-white">
             Detect Crop Diseases
             <br />
             <span className="text-green-400">
@@ -101,7 +129,7 @@ export default function Hero() {
 
           <Link
             href="/detect"
-            className="inline-block mt-10 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 px-8 py-4 font-bold text-white shadow-[0_0_40px_rgba(34,197,94,.45)] transition-all duration-300 hover:scale-105"
+            className="inline-block mt-10 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 px-10 py-5 font-bold text-white shadow-[0_0_40px_rgba(34,197,94,.45)] transition-all duration-300 hover:scale-105"
           >
             Start Detecting 🌿
           </Link>
@@ -115,14 +143,14 @@ export default function Hero() {
           className="relative flex justify-center items-center"
         >
           {/* AI Glow */}
-          <div className="absolute w-[500px] h-[500px] rounded-full bg-green-500/20 blur-[150px] animate-pulse" />
+          <div className="absolute w-[650px] h-[650px] rounded-full bg-green-500/20 blur-[150px] animate-pulse" />
 
           <div className="relative">
             {/* Scanner Corners */}
-            <div className="absolute top-4 left-4 w-16 h-16 border-l-4 border-t-4 border-green-400 rounded-tl-xl" />
-            <div className="absolute top-4 right-4 w-16 h-16 border-r-4 border-t-4 border-green-400 rounded-tr-xl" />
-            <div className="absolute bottom-4 left-4 w-16 h-16 border-l-4 border-b-4 border-green-400 rounded-bl-xl" />
-            <div className="absolute bottom-4 right-4 w-16 h-16 border-r-4 border-b-4 border-green-400 rounded-br-xl" />
+            <div className="absolute top-4 left-4 w-20 h-20 border-l-4 border-t-4 border-green-400 rounded-tl-xl" />
+            <div className="absolute top-4 right-4 w-20 h-20 border-r-4 border-t-4 border-green-400 rounded-tr-xl" />
+            <div className="absolute bottom-4 left-4 w-20 h-20 border-l-4 border-b-4 border-green-400 rounded-bl-xl" />
+            <div className="absolute bottom-4 right-4 w-20 h-20 border-r-4 border-b-4 border-green-400 rounded-br-xl" />
 
             {/* Scanner Laser */}
             <motion.div
@@ -134,7 +162,7 @@ export default function Hero() {
                 duration: 2,
                 ease: "linear",
               }}
-              className="absolute left-0 z-20 h-1 w-full bg-green-400 shadow-[0_0_25px_#22c55e]"
+              className="absolute left-0 z-20 h-[3px] w-full bg-green-400 shadow-[0_0_45px_#22c55e]"
             />
 
             {/* Leaf */}
@@ -147,7 +175,7 @@ export default function Hero() {
                 repeat: Infinity,
                 duration: 5,
               }}
-              className="relative z-10 w-full max-w-lg"
+              className="relative z-10 w-full max-w-xl xl:max-w-2xl"
             >
               <Image
                 src="/leaf.jpg"
@@ -155,7 +183,7 @@ export default function Hero() {
                 width={700}
                 height={700}
                 priority
-                className="w-full rounded-3xl drop-shadow-[0_0_60px_rgba(34,197,94,.6)]"
+                className="w-full rounded-3xl rotate-3 drop-shadow-[0_0_70px_rgba(34,197,94,.75)]"
               />
             </motion.div>
 
@@ -166,7 +194,7 @@ export default function Hero() {
             </div>
 
             {/* AI Badge */}
-            <div className="absolute bottom-8 right-0 rounded-2xl border border-green-500/20 bg-black/70 p-4 backdrop-blur-xl">
+            <div className="absolute bottom-20 -right-6 rounded-2xl border border-green-500/20 bg-black/70 p-4 backdrop-blur-xl">
               <p className="font-bold text-green-400">
                 AI Scanning
               </p>
@@ -203,4 +231,4 @@ export default function Hero() {
       </div>
     </section>
   );
-}
+            }
