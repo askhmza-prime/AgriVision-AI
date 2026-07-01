@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { memo } from "react";
 
-export default function CTA() {
+function CTA() {
   return (
     <section className="bg-[#07130a] py-24 px-6">
       <div className="mx-auto max-w-7xl">
@@ -47,3 +48,5 @@ export default function CTA() {
     </section>
   );
 }
+
+export default memo(CTA);
