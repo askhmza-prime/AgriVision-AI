@@ -9,7 +9,13 @@ function CTA() {
   return (
     <section className="bg-[#07130a] py-24 px-6">
       <div className="mx-auto max-w-7xl">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="grid lg:grid-cols-2 gap-12 items-center bg-gradient-to-r from-[#0d2215] via-[#13311d] to-[#0d2215] rounded-3xl p-12 shadow-[0_0_60px_rgba(34,197,94,.18)] border border-green-500/10"
+        >
           {/* Left - Text Section */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
@@ -37,13 +43,13 @@ function CTA() {
           >
             <Link
               href="/detect"
-              className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 px-8 py-4 font-bold text-white shadow-[0_0_40px_rgba(34,197,94,.45)] hover:scale-105 transition"
+              className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 px-8 py-4 font-bold text-white shadow-[0_0_40px_rgba(34,197,94,.5)] hover:scale-105 transition"
             >
               Start Detecting Now
               <ArrowRight className="w-5 h-5" />
             </Link>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
