@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 import numpy as np
@@ -19,7 +19,6 @@ app.add_middleware(
 
 @app.get("/")
 def home():
-
     return {
         "message": "AgriVision AI Backend Running 🚀"
     }
@@ -27,13 +26,31 @@ def home():
 
 @app.post("/predict")
 async def predict_leaf(file: UploadFile = File(...)):
+    try:
+        contents = await file.read()
+        await file.close()
 
-    contents = await file.read()
+        image = np.frombuffer(contents, np.uint8)
+        image = cv2.imdecode(image, cv2.IMREAD_COLOR)
 
-    image = np.frombuffer(contents, np.uint8)
+        if image is None:
+            raise HTTPException(
+                status_code=400,
+                detail="Invalid image file."
+            )
 
-    image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+        result = predict(image)
 
-    result = predict(image)
+        del image
+        del contents
 
-    return result
+        return result
+
+    except HTTPException:
+        raise
+
+    except Exception:
+        raise HTTPException(
+            status_code=500,
+            detail="Prediction failed."
+            )
