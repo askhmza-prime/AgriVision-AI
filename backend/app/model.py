@@ -1,5 +1,6 @@
+from pathlib import Path
 import tensorflow as tf
 
-model = tf.keras.models.load_model(
-    "agrivision_model.keras"
-)
+MODEL_PATH = Path(__file__).parent / "agrivision_model.keras"
+
+model = tf.keras.models.load_model(MODEL_PATH)
