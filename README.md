@@ -1,29 +1,74 @@
 # 🌱 AgriVision AI
 
-AI-powered crop disease detection using Deep Learning.
+AI-powered crop disease detection platform.
+
+## Problem
+
+Farmers lose crops due to late disease detection.
+
+AgriVision helps detect diseases early using AI image analysis.
+
 
 ## Features
 
-- Detect crop diseases from leaf images
-- Mobile-friendly web app
-- AI prediction using TensorFlow
+- AI crop disease detection
+- Image upload
+- Disease confidence score
 - Treatment suggestions
-- Fast inference
+- Prevention guidance
+- Responsive UI
+
 
 ## Tech Stack
 
+Frontend:
 - Next.js
+- TypeScript
+- Tailwind CSS
+
+Backend:
+- FastAPI
 - TensorFlow
 - Python
-- MobileNetV2
-- GitHub
+
+Deployment:
 - Vercel
+- Render
 
-## Current Progress
 
-✅ AI Model Trained
-✅ 15 Disease Classes
-✅ ~80% Validation Accuracy
-⏳ Web Application (In Progress)
+## Installation
 
-Project by HMZA
+Frontend:
+
+npm install
+npm run dev
+
+
+Backend:
+
+pip install -r requirements.txt
+
+uvicorn main:app --reload
+
+
+## Environment Variables
+
+Check .env.example
+
+
+## AI Model Performance
+
+Accuracy:
+Precision:
+Recall:
+F1 Score:
+
+(From Google Colab training)
+
+
+## Future Roadmap
+
+- PWA support
+- Farmer dashboard
+- Multi crop support
+- Mobile optimization
