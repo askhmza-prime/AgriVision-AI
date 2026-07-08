@@ -8,11 +8,21 @@ from .predictor import predict
 
 app = FastAPI(title="AgriVision AI")
 
+from fastapi.middleware.cors import CORSMiddleware
+import os
+
+ALLOWED_ORIGINS = [
+    os.getenv(
+        "FRONTEND_URL",
+        "https://your-agrivision-domain.vercel.app"
+    )
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
 
