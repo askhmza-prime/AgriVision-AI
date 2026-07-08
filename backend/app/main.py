@@ -5,9 +5,6 @@ import numpy as np
 import cv2
 import os
 
-from PIL import Image
-import io
-
 from .predictor import predict
 
 
@@ -38,26 +35,33 @@ app.add_middleware(
 
 
 # --------------------
-# REMOVE EXIF DATA
+# REMOVE METADATA SAFELY
 # --------------------
 
-def remove_exif(contents):
+def clean_image(image):
 
-    image = Image.open(
-        io.BytesIO(contents)
-    ).convert("RGB")
+    # Re-encode image through OpenCV
+    # Removes metadata but keeps OpenCV format
 
-
-    output = io.BytesIO()
-
-
-    image.save(
-        output,
-        format="JPEG"
+    success, buffer = cv2.imencode(
+        ".jpg",
+        image
     )
 
 
-    return output.getvalue()
+    if not success:
+        raise ValueError(
+            "Image cleaning failed"
+        )
+
+
+    clean = cv2.imdecode(
+        buffer,
+        cv2.IMREAD_COLOR
+    )
+
+
+    return clean
 
 
 # --------------------
@@ -73,7 +77,6 @@ def home():
     }
 
 
-
 @app.post("/predict")
 async def predict_leaf(
     file: UploadFile = File(...)
@@ -86,21 +89,14 @@ async def predict_leaf(
         await file.close()
 
 
-        # remove image metadata
-
-        clean_contents = remove_exif(
-            contents
-        )
-
-
-        image = np.frombuffer(
-            clean_contents,
+        image_array = np.frombuffer(
+            contents,
             np.uint8
         )
 
 
         image = cv2.imdecode(
-            image,
+            image_array,
             cv2.IMREAD_COLOR
         )
 
@@ -113,6 +109,13 @@ async def predict_leaf(
             )
 
 
+        # EXIF / metadata removal
+
+        image = clean_image(
+            image
+        )
+
+
         result = predict(
             image
         )
@@ -120,11 +123,10 @@ async def predict_leaf(
 
         del image
         del contents
-        del clean_contents
+        del image_array
 
 
         return result
-
 
 
     except HTTPException:
@@ -132,10 +134,9 @@ async def predict_leaf(
         raise
 
 
-
-    except Exception:
+    except Exception as e:
 
         raise HTTPException(
             status_code=500,
-            detail="Prediction failed."
+            detail=str(e)
         )
